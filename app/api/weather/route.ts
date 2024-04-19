@@ -2,6 +2,24 @@ import { getWeatherUrl } from "@/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 
+// write js doc for swagger 
+/**
+ * @swagger
+ * /api/weather:
+ *   get:
+ *     description: Get weather details of a city
+ *     parameters:
+ *       - name: city
+ *         description: City name
+ *         in: query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Success! returns weather details of a city
+ *       400:
+ *         description: Bad Request
+ */
 export async function GET(request: NextRequest) {
    const city = request.nextUrl.searchParams.get('city')
 

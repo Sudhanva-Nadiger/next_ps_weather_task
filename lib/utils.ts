@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { BASE_URL, LIMIT, ONE_DAY } from "./constants"
 import { Detail } from "@/types"
+import { createSwaggerSpec } from 'next-swagger-doc'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -70,4 +71,20 @@ export const generatePredictions = (data: Detail) => {
   }
 
   return messages
+}
+
+
+export const getApiDocs = async () => {
+  const spec = createSwaggerSpec({
+    apiFolder: 'app/api', 
+    definition: {
+      openapi: '3.1.0',
+      info: {
+        title: 'API Doc',
+        version: '1.0',
+      },
+      security: [],
+    },
+  })
+  return spec
 }
