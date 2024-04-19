@@ -7,10 +7,10 @@ export default function Home({
   searchParams
 }: {
   searchParams: {
-    q: string;
+    q?: string
   }
 }) {
-  const q = searchParams.q || null;
+  const q = searchParams.q;
 
   return (
     <main className="flex border shadow rounded w-full min-h-screen">

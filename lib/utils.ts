@@ -72,19 +72,3 @@ export const generatePredictions = (data: Detail) => {
 
   return messages
 }
-
-
-export const getApiDocs = async () => {
-  const spec = createSwaggerSpec({
-    apiFolder: 'app/api', 
-    definition: {
-      openapi: '3.1.0',
-      info: {
-        title: 'API Doc',
-        version: '1.0',
-      },
-      security: [],
-    },
-  })
-  return spec
-}

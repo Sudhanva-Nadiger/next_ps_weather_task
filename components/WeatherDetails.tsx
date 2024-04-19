@@ -8,11 +8,13 @@ import Content from './Content';
 // Revalidate data every 3 hours
 export const revalidate = 3600 * 3;
 
+type Props = {
+    q?: string
+}
+
 const WeatherDetails = async ({
     q
-}: {
-    q: string | null
-}) => {
+}: Props) => {
     if (!q || q === '') {
         return (
             <div className='flex flex-col items-center justify-center h-full'>
@@ -26,6 +28,29 @@ const WeatherDetails = async ({
 
     const response = await fetch(absoluteUrl(`/api/weather?city=${q}`))
     const data = await response.json() as Weather
+
+    if(!data) {
+        return (
+            <div className='flex flex-col items-center justify-center h-full'>
+                <Globe2 className='w-16 h-16 text-muted-foreground' />
+                <h1 className='text-3xl text-muted-foreground'>
+                    Something went wrong. Please try again later.
+                </h1>
+            </div>
+        )
+    }
+
+    if(data.cod !== '200') {
+        return (
+            <div className='flex flex-col items-center justify-center h-full'>
+                <Globe2 className='w-16 h-16 text-muted-foreground' />
+                <h1 className='text-3xl text-muted-foreground'>
+                    {data.message}
+                </h1>
+            </div>
+        )
+    } 
+    
 
     const today = new Date()
 
