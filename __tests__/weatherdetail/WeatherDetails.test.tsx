@@ -30,7 +30,7 @@ const MOCK_DATA = {
     ]
 }
 
-describe("Weather Form", () => {
+describe("Weather detail", () => {
 
     it("Should render weather detail currectly", async () => {
         const jsx = await WeatherDetails({});
