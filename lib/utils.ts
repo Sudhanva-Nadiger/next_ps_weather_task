@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { BASE_URL, LIMIT, ONE_DAY } from "./constants"
 import { Detail } from "@/types"
-import { createSwaggerSpec } from 'next-swagger-doc'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
