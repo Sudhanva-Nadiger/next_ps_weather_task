@@ -5,6 +5,16 @@ import { generatePredictions } from '@/lib/utils';
 import { ScrollArea } from './ui/scroll-area';
 
 const Content = ({ weatherData, title }: { weatherData: Detail[], title: 'Today' | 'Tomorrow' | 'Day After Tomorrow' }) => {
+    if(!weatherData?.length) {
+        return (
+            <div className='flex flex-col items-center justify-center h-full'>
+                <h1 className='text-3xl text-muted-foreground'>
+                    No data available.
+                </h1>
+            </div>
+        )
+    }
+
     const date = new Date(weatherData[0].dt * 1000)
 
     return (

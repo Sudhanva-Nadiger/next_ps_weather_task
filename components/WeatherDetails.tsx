@@ -51,6 +51,7 @@ const WeatherDetails = async ({
         )
     } 
     
+    
 
     const today = new Date()
 
