@@ -1,0 +1,20 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./next.config.js
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+    volumes:
+      - .:/app
+      - /app/node_modules
