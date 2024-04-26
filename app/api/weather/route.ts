@@ -1,8 +1,6 @@
 import { getWeatherUrl } from "@/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
-
-
-// write js doc for swagger 
+ 
 /**
  * @swagger
  * /api/weather:
