@@ -1,7 +1,12 @@
 
 
 pipeline {
-    agent any
+     agent {
+        any {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
 
     environment {
         VERCEL_TOKEN=credentials('vercel-token')
@@ -19,70 +24,69 @@ pipeline {
 
         stage('Install pnpm...') {
             steps {
-                echo 'Installing pnpm..'
-
-                sh 'curl -fsSL https://get.pnpm.io/install.sh | sh'
-                sh 'export PATH="$HOME/.pnpm/bin:$PATH"'
-            }
-        }
-
-        stage('Lint') {
-            steps {
-                echo 'Checking lint..'
-                sh 'pnpm lint'
+                echo 'Installing pnpm'
+                bat 'corepack enable'
+                bat 'corepack prepare pnpm@latest-9 --activate'
             }
         }
 
         stage('install packages') {
             steps {
                 echo 'Installing packages..'
-                sh 'pnpm install'
+                bat 'pnpm install'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                echo 'Checking lint..'
+                bat 'pnpm lint'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests..'
-                sh 'pnpm test'
+                bat 'pnpm test'
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'pnpm build'
+                bat 'pnpm build'
             }
         }
 
         stage('Build image') {
             steps {
                 echo 'Building image..'
-                sh 'docker build -t next-ps-assignment@latest .'
+                bat 'docker build .'
             }
         }
 
         stage('verify Vercel CLI') {
             steps {
-                sh 'pnpm i -g vercel@latest'
-                sh 'vercel --version'
+                bat 'npm i -g vercel@latest'
+                bat 'vercel --version'
             }
         }
 
         stage('pull') {
             steps {
-                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN pull --yes'
+                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN pull --yes'
             }
         }
 
         stage('build') {
             steps {
-                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN build --prod --yes'
+                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN build --prod --yes'
             }
         }
 
         stage('deploy function') {
             steps {
-                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN deploy --prebuilt --prod'
+                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN deploy --prebuilt --prod'
             }
         }
     }
@@ -102,7 +106,7 @@ pipeline {
         }
 
         always {
-            echo 'Pipeline finished..'
+            echo 'Pipeline finibated..'
         }
 
     }
