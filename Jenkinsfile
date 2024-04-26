@@ -70,19 +70,19 @@ pipeline {
 
         stage('pull') {
             steps {
-                sh 'vercel --scope $VERCEL_SCOPE --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN pull --yes'
+                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN pull --yes'
             }
         }
 
         stage('build') {
             steps {
-                sh 'vercel --scope $VERCEL_SCOPE --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN build --prod --yes'
+                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN build --prod --yes'
             }
         }
 
         stage('deploy function') {
             steps {
-                sh 'vercel --scope $VERCEL_SCOPE --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN deploy --prebuilt --prod'
+                sh 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN deploy --prebuilt --prod'
             }
         }
     }
