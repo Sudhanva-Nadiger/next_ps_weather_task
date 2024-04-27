@@ -60,7 +60,7 @@
     - Test api in Postman or Thunderclinet by sending a GET request to http://localhost:3000/api/weather?city={city_name}
     - Api docs at: http://localhost:3000/api/docs
 
-- Run tests
+- Run tests. Added Unit tests and Snapshot tests. (Jest is used for testing)
     ```bash
     pnpm test
     ```
