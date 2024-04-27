@@ -61,7 +61,7 @@ pipeline {
         stage('Build image') {
             steps {
                 echo 'Building image..'
-                bat 'docker build .'
+                bat 'docker build -t assignment:latest .'
             }
         }
     }
