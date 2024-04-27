@@ -26,7 +26,9 @@ const WeatherDetails = async ({
         )
     }
 
-    const response = await fetch(absoluteUrl(`/api/weather?city=${q}`))
+    const url = absoluteUrl(`/api/weather?city=${q}`);
+    console.log(url);
+    const response = await fetch(url)
     const data = await response.json() as Weather
 
     if(!data) {
