@@ -1,6 +1,6 @@
 import { Detail, Weather } from '@/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { absoluteUrl, getDifferenceBetweenDates } from '@/lib/utils';
+import { absoluteUrl, getDifferenceBetweenDates, getWeatherUrl } from '@/lib/utils';
 import { Globe2 } from 'lucide-react';
 import Content from './Content';
 
@@ -26,9 +26,12 @@ const WeatherDetails = async ({
         )
     }
 
-    const url = absoluteUrl(`/api/weather?city=${q}`);
-    console.log(url);
-    const response = await fetch(url)
+    const url = getWeatherUrl(q)
+
+    const response = await fetch(url, {
+        cache: 'no-cache',
+    })
+
     const data = await response.json() as Weather
 
     if(!data) {
@@ -57,14 +60,16 @@ const WeatherDetails = async ({
 
     const today = new Date()
 
-    const weatherData: Array<Array<Detail>> = []
+    const weatherData: Array<Array<Detail>> = [[], [], []];
 
     data.list.forEach((item) => {
         const date = new Date(item.dt * 1000)
 
         const diff = getDifferenceBetweenDates(today, date)
 
-        weatherData[diff] ? weatherData[diff].push(item) : weatherData[diff] = [item]
+        if(diff > 2) return;
+
+        weatherData[diff].push(item)
     });
 
     return (
