@@ -13,6 +13,16 @@
 - Deployment: Vercel
 - Api Documentation: OpenApi/Swagger
 
+### Application Architecture
+<img src='./public/appArchitecture.png' />
+
+### Explanation: 
+- When user lands on the home page he sees the form to type the city name and search for the weather data.
+- When user types the city name and clicks on search, the frontend sends a GET request to the openWeatherMap api and renders the result.
+- Since nextjs supports server side rendering, we dont have to worry about the apikey exposing on the client and also nextjs allows caching the request we will revalidate the request every 3 hour. (Performance Optimization & Security aspects)
+- We can get the data from Postman or Thunderclinet by sending a GET request to http://localhost:3000/api/weather?city={city_name} and It sends the request to the openWeatherMap api and returns the data.
+- Since both the requests are happening on the server we dont have to worry about the apikey exposing on the client side. (Sensitive information used in the Micro Services such as API keys are protected)
+
 ## Demo Pictures
 - Home Page
     <img src='./public/ui0.png' />
@@ -64,6 +74,6 @@
     - Dockerfiles are present in the root directory of the project to build the docker image.You can easily run the project using docker without any dependencies.
 
 ## Deployment
-- Deployed on Vercel.
+- Deployed on Vercel (Production readiness of the code).
     - Frontend: https://next-ps-weather-task.vercel.app/
     - Backend: https://next-ps-weather-task.vercel.app/api/weather (For more information check the api documentation at https://next-ps-weather-task.vercel.app/api/docs)
