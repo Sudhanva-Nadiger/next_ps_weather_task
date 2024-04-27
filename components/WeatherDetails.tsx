@@ -6,7 +6,7 @@ import Content from './Content';
 
 
 // Revalidate data every 3 hours
-export const revalidate = 3600 * 3;
+const revalidate = 3600 * 3;
 
 type Props = {
     q?: string
@@ -29,7 +29,9 @@ const WeatherDetails = async ({
     const url = getWeatherUrl(q)
 
     const response = await fetch(url, {
-        cache: 'no-cache',
+        next: {
+            revalidate: revalidate
+        }
     })
 
     const data = await response.json() as Weather
