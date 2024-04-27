@@ -12,3 +12,58 @@
 - CI/CD: Jenkins, Docker
 - Deployment: Vercel
 - Api Documentation: OpenApi/Swagger
+
+## Demo Pictures
+- Home Page
+    <img src='./public/ui0.png' />
+- Query Page (All the weather data of a city with Prediction on every 3 hour window)
+    <img src='./public/ui1.png' />
+- Api docs
+    <img src='./public/apidocsui.png' />
+- Jenkins Pipeline
+    <img src='./public/jenkinspipelinedemo.png' />
+- Postman Api request
+    <img src='./public/postmandemo.png' />
+
+## How to run the project
+- Clone the repository
+    ```bash
+    git clone https://github.com/Sudhanva-Nadiger/next_ps_weather_task.git
+    ```
+- Requirements
+    - NodeJs
+    - pnpm
+    ```bash
+    npm install -g pnpm
+    ```
+
+- Install the dependencies
+    ```bash
+    cd next_ps_weather_task
+    pnpm install
+    ```
+- Run the project
+    ```bash
+    pnpm dev
+    ```
+    - Open the browser and go to http://localhost:3000 to see the ui in the browser.
+    - Test api in Postman or Thunderclinet by sending a GET request to http://localhost:3000/api/weather?city={city_name}
+    - Api docs at: http://localhost:3000/api/docs
+
+- Run tests
+    ```bash
+    pnpm test
+    ```
+
+## CI/CD
+- Jenkins Pipeline
+    - Jenkinsfile is present in the root directory of the project.
+    - Jenkins pipeline is configured to check linting, run tests and build and build docker image.
+
+- Docker
+    - Dockerfiles are present in the root directory of the project to build the docker image.You can easily run the project using docker without any dependencies.
+
+## Deployment
+- Deployed on Vercel.
+    - Frontend: https://next-ps-weather-task.vercel.app/
+    - Backend: https://next-ps-weather-task.vercel.app/api/weather (For more information check the api documentation at https://next-ps-weather-task.vercel.app/api/docs)
