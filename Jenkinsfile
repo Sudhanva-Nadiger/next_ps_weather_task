@@ -51,44 +51,17 @@ pipeline {
             }
         }
 
-        // stage('Build') {
-        //     steps {
-        //         echo 'Building..'
-        //         bat 'pnpm build'
-        //     }
-        // }
-
-        // stage('Build image') {
-        //     steps {
-        //         echo 'Building image..'
-        //         bat 'docker build .'
-        //     }
-        // }
-
-        stage('verify Vercel CLI') {
+        stage('Build') {
             steps {
-                echo 'Verifying Vercel CLI..'
-                bat 'corepack enable'
-                bat 'corepack prepare vercel'
-                bat 'vercel --version'
+                echo 'Building..'
+                bat 'pnpm build'
             }
         }
 
-        stage('pull') {
+        stage('Build image') {
             steps {
-                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN pull --yes'
-            }
-        }
-
-        stage('build') {
-            steps {
-                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN build --prod --yes'
-            }
-        }
-
-        stage('deploy function') {
-            steps {
-                bat 'vercel --cwd $WORK_DIR --no-color --token $VERCEL_TOKEN deploy --prebuilt --prod'
+                echo 'Building image..'
+                bat 'docker build .'
             }
         }
     }
