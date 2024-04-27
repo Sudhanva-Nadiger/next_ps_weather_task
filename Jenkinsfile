@@ -67,7 +67,6 @@ pipeline {
 
         stage('verify Vercel CLI') {
             steps {
-                bat 'npm i -g vercel@latest'
                 bat 'vercel --version'
             }
         }
