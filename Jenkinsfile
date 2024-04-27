@@ -69,7 +69,7 @@ pipeline {
             steps {
                 echo 'Verifying Vercel CLI..'
                 bat 'corepack enable'
-                bat 'corepack prepare vercel --activate'
+                bat 'corepack prepare vercel'
                 bat 'vercel --version'
             }
         }
