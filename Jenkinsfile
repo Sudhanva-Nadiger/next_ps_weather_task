@@ -51,22 +51,25 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building..'
-                bat 'pnpm build'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         echo 'Building..'
+        //         bat 'pnpm build'
+        //     }
+        // }
 
-        stage('Build image') {
-            steps {
-                echo 'Building image..'
-                bat 'docker build .'
-            }
-        }
+        // stage('Build image') {
+        //     steps {
+        //         echo 'Building image..'
+        //         bat 'docker build .'
+        //     }
+        // }
 
         stage('verify Vercel CLI') {
             steps {
+                echo 'Verifying Vercel CLI..'
+                bat 'corepack enable'
+                bat 'corepack prepare vercel --activate'
                 bat 'vercel --version'
             }
         }
@@ -105,7 +108,7 @@ pipeline {
         }
 
         always {
-            echo 'Pipeline finibated..'
+            echo 'Pipeline finished..'
         }
 
     }
